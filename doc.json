@@ -1,0 +1,29 @@
+{
+  "name": "omegga-analog-clock",
+  "description": "Analog clocks made out of item spawns.",
+  "author": "voximity",
+  "config": {
+    "authed-roles": {
+      "description": "Roles authorized to create/modify clock hands.",
+      "type": "list",
+      "itemType": "role",
+      "default": []
+    },
+    "update-rate-seconds": {
+      "description": "How often, in milliseconds to update clock hands that represent seconds.",
+      "type": "number",
+      "default": 1000
+    },
+    "update-rate-minutes": {
+      "description": "How often, in milliseconds, to update clock hands that represent minutes.",
+      "type": "number",
+      "default": 10000
+    },
+    "update-rate-hours": {
+      "description": "How often, in milliseconds, to update clock hands that represent hours.",
+      "type": "number",
+      "default": 120000
+    }
+  },
+  "commands": []
+}
