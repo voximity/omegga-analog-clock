@@ -1,29 +1,15 @@
-<!--
-
-When uploading your plugin to github/gitlab
-start your repo name with "omegga-"
-
-example: https://github.com/voximity/omegga-omegga-analog-clock
-
-Your plugin will be installed via omegga install gh:voximity/omegga-analog-clock
-
--->
-
 # omegga-analog-clock
 
-A typed safe plugin for [omegga](https://github.com/brickadia-community/omegga).
-
-This is an auto-generated README file. Please change it before publishing your plugin!
-
-Be sure to edit the script in `setup.sh` to configure your plugin on install, or
-remove it entirely if it is unnecessary.
+Analog clocks for Omegga. Originally created for base4's New Years 2024 server.
 
 ## Install
 
 `omegga install gh:voximity/omegga-analog-clock`
 
-_TODO: more steps...?_
-
 ## Usage
 
-_TODO: include some usage information_
+- Create a new clock with `/clock new`
+- Remove a clock with `/clock delete [id]`
+- Freeze all clocks with `/clock freeze`
+- View all clocks with `/clock list`
+- Set a clock's hour offset with `/clock offset [id] [hours]`
