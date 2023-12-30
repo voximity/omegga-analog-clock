@@ -5,6 +5,7 @@ import OmeggaPlugin, {
   OmeggaPlayer,
   KnownComponents,
   Components,
+  Vector,
 } from 'omegga';
 
 const {
@@ -20,6 +21,7 @@ type ClockHand = {
   pickup: keyof typeof KNOWN_HANDS;
   radius: number;
   facing: number;
+  position?: Vector;
   rotated?: boolean;
   hoursOffset?: number;
 };
@@ -59,7 +61,7 @@ type Config = {
   ['update-rate-hours']: number;
 };
 
-type Storage = { hands: Record<string, ClockHand> };
+type Storage = { hands: Record<string, Omit<ClockHand, 'position'>> };
 
 type PlayerTransform = {
   x: number;
@@ -150,7 +152,9 @@ export default class Plugin implements OmeggaPlugin<Config, Storage> {
   };
 
   updateHand = async (hand: ClockHand): Promise<void> => {
-    this.omegga.clearBricks(hand.uuid, true);
+    if (hand.position) {
+      this.omegga.clearRegion({ center: hand.position, extent: [1, 1, 1] });
+    }
 
     const date = new Date();
     if (hand.hoursOffset !== undefined)
@@ -172,6 +176,12 @@ export default class Plugin implements OmeggaPlugin<Config, Storage> {
     const angle = (value > 0.5 ? value - 1 : value) * 360;
 
     const handData = KNOWN_HANDS[hand.pickup];
+    const position = [
+      hand.origin[0] + sin * facingPosX[hand.facing] * hr,
+      hand.origin[1] + sin * facingPosY[hand.facing] * hr,
+      hand.origin[2] + cos * hr,
+    ].map(Math.round) as [number, number, number];
+    hand.position = position;
 
     this.omegga.loadSaveData(
       {
@@ -181,11 +191,7 @@ export default class Plugin implements OmeggaPlugin<Config, Storage> {
         ],
         bricks: [
           {
-            position: [
-              hand.origin[0] + sin * facingPosX[hand.facing] * hr,
-              hand.origin[1] + sin * facingPosY[hand.facing] * hr,
-              hand.origin[2] + cos * hr,
-            ].map(Math.round) as [number, number, number],
+            position,
             size: [1, 1, 1],
             asset_name_index: 0,
             owner_index: 1,
