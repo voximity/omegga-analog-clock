@@ -34,6 +34,7 @@ const KNOWN_HANDS: Record<string, { height: number }> = {
   Longsword: { height: 56 },
   HoloBlade: { height: 29 },
   ChargedLongsword: { height: 76 },
+  CrystalKalis: { height: 53 },
 };
 
 const DEFAULT_ITEM_SPAWN: Partial<
