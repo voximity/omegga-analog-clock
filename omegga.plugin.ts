@@ -154,6 +154,8 @@ export default class Plugin implements OmeggaPlugin<Config, Storage> {
   updateHand = async (hand: ClockHand): Promise<void> => {
     if (hand.position) {
       this.omegga.clearRegion({ center: hand.position, extent: [1, 1, 1] });
+    } else {
+      this.omegga.clearBricks(hand.uuid, true);
     }
 
     const date = new Date();
