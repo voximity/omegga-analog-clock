@@ -228,6 +228,10 @@ export default class Plugin implements OmeggaPlugin<Config, Storage> {
     // load initial state
     this.hands = (await this.store.get('hands')) ?? {};
 
+    for (const hand of Object.values(this.hands)) {
+      this.omegga.clearBricks(hand.uuid, true);
+    }
+
     const {
       ['update-rate-seconds']: rateS,
       ['update-rate-minutes']: rateM,
